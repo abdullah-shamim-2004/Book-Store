@@ -12,6 +12,15 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
+// form submit function
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const formData = new FormData(e.currentTarget);
+  const email = formData.get("email");
+  const password = formData.get("password");
+  console.log(email, password);
+};
+
 const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -23,18 +32,21 @@ const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
+                {/* Email fild */}
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="example@gmail.com"
                   required
                 />
               </Field>
               <Field>
+                {/* Password field */}
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <a
@@ -44,7 +56,7 @@ const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input name="password" id="password" type="password" required />
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
@@ -56,7 +68,7 @@ const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
                 </FieldDescription>
               </Field>
             </FieldGroup>
-          </form>
+          </form> 
         </CardContent>
       </Card>
     </div>
